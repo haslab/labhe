@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "KeccakPRG.h"
+#include "KeccakPRGWidth1600.h"
 
 #include "prf.h"
 
