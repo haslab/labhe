@@ -40,7 +40,9 @@ $ make generic64/libkeccak.a # This is an example. Faster compilation options wi
 4 - Build from source
 
 $ cd ..
-$ cmake .
+
+$ mkdir build && cd build && cmake .. 
+
 $ make
 
 6 - Run the test application

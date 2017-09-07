@@ -20,7 +20,7 @@ static int gen_rsa_primes(mpz_t p, mpz_t q, int l, int k,gmp_randstate_t gmpRand
    	mpz_init(t2);
 
    	mpz_init(_2l);
-    mpz_init_set_ui(t1,1);
+    mpz_set_ui(t1,1);
     mpz_mul_2exp(_2l,t1,l-1); // _2l = 2^l
 
 	for(;;) {
