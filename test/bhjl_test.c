@@ -132,5 +132,8 @@ int main(int argc, char* argv[])
 		printf("OK!\n");
 	}
 
+    mpz_clears(p, n, y, D,msg1, cph1, msg2, cph2, msgp, cpha, msga, aux, seed, _2k,_2k1,pm12k,NULL);
+    gmp_randclear(gmpRandState);
+
 	exit(0);
 }

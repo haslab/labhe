@@ -34,6 +34,10 @@ int main(int argc, char* argv[])
 	ms2=(mpz_t*)malloc(COUNT*sizeof(mpz_t));
 	c=(mpz_t*)malloc(COUNT*sizeof(mpz_t));
 
+	for (i=0;i<COUNT;i++) {
+		mpz_inits(c[i],cs1[i],ms1[i],b_masks1[i],eb_masks1[i],cs2[i],ms2[i],b_masks2[i],eb_masks2[i],NULL);
+	}
+
 	fp = fopen("/dev/urandom", "r");
 	if (!fp) { exit(1); }
 
@@ -64,12 +68,10 @@ int main(int argc, char* argv[])
 	fprintf(stdout,"PK2=0x"); mpz_out_str(stdout,16,pk2); fprintf(stdout,"\n");
 
 	for (i=0;i<COUNT;i++) {
-		mpz_inits(c[i],cs1[i],ms1[i],b_masks1[i],eb_masks1[i],NULL);
 		mpz_urandomb(ms1[i],gmpRandState,k);
 	}
 
 	for (i=0;i<COUNT;i++) {
-		mpz_inits(cs2[i],ms2[i],b_masks2[i],eb_masks2[i],NULL);
 		mpz_urandomb(ms2[i],gmpRandState,k);
 	}
 
@@ -113,7 +115,7 @@ int main(int argc, char* argv[])
 
 	fprintf(stdout,"m=0x"); mpz_out_str(stdout,16,m); fprintf(stdout,"\n");
 
-	mpz_init_set_ui(mp,0);
+	mpz_set_ui(mp,0);
 
 	for (i=0;i<COUNT;i++) {
 		mpz_mul(t1,ms1[i],ms2[i]);
@@ -133,6 +135,12 @@ int main(int argc, char* argv[])
 	}
 
 	if (fclose(fp)) { exit(1); }
+
+    mpz_clears(p, n, y, D,seed,pk1,pk2,_2k,_2k1,pm12k, enc1, t1, t2, mp,cred,b,m,NULL);
+    for (i=0;i<COUNT;i++) {
+       mpz_clears(c[i],cs1[i],ms1[i],b_masks1[i],eb_masks1[i],cs2[i],ms2[i],b_masks2[i],eb_masks2[i], NULL);
+    }
+    gmp_randclear(gmpRandState);
 
 	free(b_masks1);
 	free(eb_masks1);
